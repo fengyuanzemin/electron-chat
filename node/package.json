@@ -1,0 +1,17 @@
+{
+    "name": "node-chat",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "node app.js"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "koa": "^2.5.3",
+        "koa-route": "^3.2.0",
+        "lodash": "^4.17.11",
+        "socket.io": "^2.1.1"
+    }
+}
