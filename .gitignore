@@ -1,2 +1,4 @@
 node_modules
 .idea
+electron-chat-darwin-x64
+ElectronChat.dmg

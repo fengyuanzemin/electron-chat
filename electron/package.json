@@ -4,7 +4,9 @@
     "description": "A minimal Electron application",
     "main": "main.js",
     "scripts": {
-        "start": "electron ."
+        "start": "electron .",
+        "package": "electron-packager .",
+        "dmg": "electron-installer-dmg electron-chat-darwin-x64/electron-chat.app ElectronChat"
     },
     "repository": {
         "type": "git",
@@ -20,6 +22,12 @@
     "author": "fengyuanzemin",
     "license": "CC0-1.0",
     "devDependencies": {
-        "electron": "^2.0.0"
+        "electron": "^2.0.0",
+        "electron-installer-dmg": "^2.0.0",
+        "electron-packager": "^12.1.2"
+    },
+    "dependencies": {
+        "jquery": "^3.3.1",
+        "socket.io-client": "^2.1.1"
     }
 }
