@@ -4,7 +4,9 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "start": "node app.js"
+        "dev": "nodemon app.js --watch app.js",
+        "start": "forever start app.js",
+        "stop": "forever stop app.js"
     },
     "author": "",
     "license": "ISC",
@@ -13,5 +15,9 @@
         "koa-route": "^3.2.0",
         "lodash": "^4.17.11",
         "socket.io": "^2.1.1"
+    },
+    "devDependencies": {
+        "forever": "^0.15.3",
+        "nodemon": "^1.18.4"
     }
 }
