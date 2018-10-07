@@ -2,6 +2,7 @@
 // be executed in the renderer process for that window.
 // All of the Node.js APIs are available in this process.
 const socket = require('socket.io-client')('http://118.25.37.73:8080');
+// const socket = require('socket.io-client')('http://127.0.0.1:8080');
 const $ = require('jquery');
 
 $(function() {
@@ -101,6 +102,13 @@ $(function() {
             .append($usernameDiv, $messageBodyDiv);
 
         addMessageElement($messageDiv, options);
+    }
+
+    // 创建一个系统通知
+    const createNotification = (data) => {
+        const myNotification = new Notification(data.username, {
+            body: data.message,
+        });
     }
 
     // Adds the visual chat typing message
@@ -243,6 +251,7 @@ $(function() {
     // Whenever the server emits 'new message', update the chat body
     socket.on('new message', (data) => {
         addChatMessage(data);
+        createNotification(data);
     });
 
     // Whenever the server emits 'user joined', log it in the chat body
@@ -282,5 +291,4 @@ $(function() {
     socket.on('reconnect_error', () => {
         log('attempt to reconnect has failed');
     });
-
 });
