@@ -1,9 +1,10 @@
 const koa = require('koa');
 const app = new koa();
 // const route = require('koa-route');
-var server = require('http').Server(app.callback());
-var io = require('socket.io')(server);
-var port = process.env.PORT || 8080;
+const server = require('http').Server(app.callback());
+const io = require('socket.io')(server);
+const port = process.env.PORT || 8080;
+const robot = require('./robot');
 
 server.listen(port, () => {
     console.log('Server listening at port %d', port);
@@ -17,12 +18,31 @@ io.on('connection', (socket) => {
     var addedUser = false;
 
     // when the client emits 'new message', this listens and executes
-    socket.on('new message', (data) => {
-        // we tell the client to execute 'new message'
-        socket.broadcast.emit('new message', {
-            username: socket.username,
-            message: data
-        });
+    socket.on('new message', async(data) => {
+        if (/^\@风/.test(data)) {
+            let message;
+            try {
+                const res = await robot(data);
+                if (res.data.code === 100000) {
+                    message = res.data.text;
+                } else {
+                    message = '哦是吗';
+                }
+            } catch (e) {
+                console.error(e);
+                message = '我这边出现了一点小问题～（其实就是 API 不能调用了）';
+            }
+            io.sockets.emit('new message', {
+                username: '风',
+                message,
+            });
+        } else {
+            // we tell the client to execute 'new message'
+            socket.broadcast.emit('new message', {
+                username: socket.username,
+                message: data,
+            });
+        }
     });
 
     // when the client emits 'add user', this listens and executes
