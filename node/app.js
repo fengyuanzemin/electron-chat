@@ -3,7 +3,7 @@ const app = new koa();
 // const route = require('koa-route');
 const server = require('http').Server(app.callback());
 const io = require('socket.io')(server);
-const port = process.env.PORT || 8080;
+const port = 8080;
 const robot = require('./robot');
 
 server.listen(port, () => {
