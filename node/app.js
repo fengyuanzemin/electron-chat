@@ -19,6 +19,11 @@ io.on('connection', (socket) => {
 
     // when the client emits 'new message', this listens and executes
     socket.on('new message', async(data) => {
+        // we tell the client to execute 'new message'
+        socket.broadcast.emit('new message', {
+            username: socket.username,
+            message: data,
+        });
         if (/^\@风/.test(data)) {
             let message;
             try {
@@ -30,17 +35,11 @@ io.on('connection', (socket) => {
                 }
             } catch (e) {
                 console.error(e);
-                message = '我这边出现了一点小问题～（其实就是 API 不能调用了）';
+                message = '我今天累了～（其实就是 API 不能调用了）';
             }
             io.sockets.emit('new message', {
                 username: '风',
                 message,
-            });
-        } else {
-            // we tell the client to execute 'new message'
-            socket.broadcast.emit('new message', {
-                username: socket.username,
-                message: data,
             });
         }
     });
